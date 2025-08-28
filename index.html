@@ -1,0 +1,38 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nest Mini アラーム</title>
+<style>
+  body { font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji"; display:grid; place-items:center; min-height:100vh; background:#0b1220; color:#e8eefc; }
+  .card{ background:#121a2a; padding:28px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); width:min(480px,92vw); }
+  h1{ font-size:22px; margin:0 0 18px; }
+  button{ font-size:18px; padding:14px 22px; border-radius:12px; border:0; cursor:pointer; }
+  .primary{ background:#3b82f6; color:#fff; }
+  .row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .ok{ display:none; margin-top:12px; color:#7dd3fc }
+</style>
+
+<div class="card">
+  <h1>🔔 Nest Mini を鳴らす</h1>
+
+  <!-- 送信用の隠しiframe（ページ遷移せず送るため） -->
+  <iframe name="sink" style="display:none"></iframe>
+
+  <!-- ボタン：フォームPOST（CORS回避） -->
+  <form id="f1" action="https://homeassistant.1496r.jp/api/webhook/alarm-kslfoBcFJhpUdXfQzQIur1IC" method="post" target="sink">
+    <div class="row">
+      <button type="submit" class="primary">アラームを鳴らす</button>
+    </div>
+  </form>
+
+  <div id="done" class="ok">送信しました。数秒でスピーカーが鳴ります。</div>
+</div>
+
+<script>
+  // 送信したらページ遷移せずメッセージだけ出す
+  document.getElementById('f1').addEventListener('submit', () => {
+    document.getElementById('done').style.display = 'block';
+    setTimeout(()=>document.getElementById('done').style.display='none', 4000);
+  });
+</script>
